@@ -1,16 +1,16 @@
-from flask import Flask, send_from_directory
+from flask import Flask
 from flask_restful import Api, Resource, reqparse
-from flask_cors import CORS  # comment this on deployment
-from api.HelloApiHandler import HelloApiHandler
+# from flask_cors import CORS  # comment this on deployment
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
-CORS(app)  # comment this on deployment
+# CORS(app)  # comment this on deployment
 api = Api(app)
 
+@app.route('/')
+def hello():
+    return '\u3145 \u3142 \20 \u3148 \uAC19 \uB2E4'
 
-@app.route("/", defaults={'path': ''})
-def serve(path):
-    return send_from_directory(app.static_folder, 'index.html')
 
 
-api.add_resource(HelloApiHandler, '/flask/hello')
+if __name__ == '__main__':
+    app.run(debug=True)
