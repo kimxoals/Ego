@@ -16,6 +16,7 @@ function App(props) {
       key={task.id}
       toggleTaskCompleted={toggleTaskCompleted}
       deleteTask={deleteTask}
+      editTask={editTask}
     />
   ));
   const headingNoun = taskList.length === 1 ? "task" : "tasks";
@@ -41,6 +42,16 @@ function App(props) {
   function deleteTask(id) {
     const remainingTasks = tasks.filter((task) => id !== task.id);
     setTasks(remainingTasks);
+  }
+
+  function editTask(id, newName) {
+    const editiedTasks = tasks.map((task) => {
+      if (id === task.id) {
+        return { ...task, name: newName };
+      }
+      return task;
+    });
+    setTasks(editiedTasks);
   }
   return (
     <div className="todoapp stack-large">
