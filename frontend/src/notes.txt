@@ -1,0 +1,28 @@
+Each node will have randomized tendency to consume electricity generated when the node gets created.
+
+
+
+Front-end <-> Back-end (State-Change)
+
+Clock based
+1. Time-Price distribution updates every day at 00:00
+2. Time-Power graph updates every time tick(e.g 30 min)
+
+Variable based
+Graph: new node, new edge
+
+Todo: Add graph and edge
+
+Node
+    id
+    price sensitivity: random float (0<r<1)
+    Time-Power distribution: math.import rNorm(rand, rand, rand)
+Edge
+    id = (node1_id , node2_id)
+    weight = power cable limit
+
+Time(fixed)-Power graph: updates daily at 00:00
+Real-Time-Power graph: updates every clock tick
+
+Think about drawing later.
+First focus on making react components
