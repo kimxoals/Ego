@@ -1,5 +1,5 @@
 import "./App.css";
-import Graph from "./components/Graph";
+
 import GraphPractice from "./components/GraphPractice";
 
 function App() {

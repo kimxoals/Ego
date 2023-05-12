@@ -1,3 +1,6 @@
+//https://www.youtube.com/watch?v=y7DxbW9nwmo
+// https://github.com/d3/d3/blob/main/API.md#forces-d3-force
+
 import * as d3 from "d3";
 const nodes = [{ id: "Alice" }, { id: "Bob" }, { id: "Carol" }];
 const links = [
@@ -22,10 +25,21 @@ function GraphPractice() {
     .data(nodes)
     .enter()
     .append("circle")
-    .attr("r", 20);
+    .attr("r", 10);
+
+  const lines = svg
+    .selectAll("line")
+    .data(links)
+    .enter()
+    .append("line")
+    .attr("stroke", "black");
 
   simulation.on("tick", () => {
     circles.attr("cx", (node) => node.x).attr("cy", (node) => node.y);
+    lines.attr("x1", (link) => link.source.x);
+    lines.attr("y1", (link) => link.source.y);
+    lines.attr("x2", (link) => link.target.x);
+    lines.attr("y2", (link) => link.target.y);
   });
 }
 
