@@ -61,7 +61,7 @@ const Graph = () => {
       .data(nodes)
       .join("circle")
       .attr("class", "node")
-      .attr("r", 10)
+      .attr("r", 20)
       .attr("id", (d) => d.id)
       .call(drag(simulation));
 

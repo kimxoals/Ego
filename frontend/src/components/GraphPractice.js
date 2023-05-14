@@ -1,15 +1,13 @@
 //https://www.youtube.com/watch?v=y7DxbW9nwmo
 // https://github.com/d3/d3/blob/main/API.md#forces-d3-force
-import React, { useState } from "react";
+
 import * as d3 from "d3";
-
-export function GraphPractice(props) {
-  const nodes = [{ id: "Alice" }, { id: "Bob" }, { id: "Carol" }];
-  const links = [
-    { source: 0, target: 1 },
-    { source: 1, target: 2 },
-  ];
-
+const nodes = [{ id: "Alice" }, { id: "Bob" }, { id: "Carol" }];
+const links = [
+  { source: 0, target: 1 },
+  { source: 1, target: 2 },
+];
+function GraphPractice() {
   const svg = d3.select("#container");
   //   const width = +svg.attr("width");
   //   const height = +svg.attr("height");
@@ -27,7 +25,7 @@ export function GraphPractice(props) {
     .data(nodes)
     .enter()
     .append("circle")
-    .attr("r", radius);
+    .attr("r", 10);
 
   const lines = svg
     .selectAll("line")
