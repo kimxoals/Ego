@@ -26,3 +26,7 @@ h2 {
   flex-basis: 30%;
   width: 100%;
 }
+
+svg {
+  border: 1px solid black;
+}

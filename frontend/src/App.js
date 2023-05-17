@@ -2,8 +2,6 @@ import React from "react";
 import { useMemo, useState } from "react";
 import "./App.css";
 import NodeInfo from "./components/NodeInfo";
-import Curve from "./components/Curve";
-
 import Graph from "./components/Graph";
 import Curve from "./components/Curve";
 
