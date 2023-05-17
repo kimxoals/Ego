@@ -1,9 +1,9 @@
 import React from "react";
-// import data from "./data/data.json";
-import Graph from "./components/Graph";
-import * as d3 from "d3";
 import { useMemo, useState } from "react";
 import "./App.css";
+
+import Graph from "./components/Graph";
+import Curve from "./components/Curve";
 
 export default function App() {
   const [nodes, setNodes] = useState([]);
@@ -11,13 +11,24 @@ export default function App() {
 
   return (
     <div className="App">
-      <Graph
-        nodes={nodes}
-        setNodes={setNodes}
-        links={links}
-        setLinks={setLinks}
-      />
-      {console.log(nodes, links)}
+      <div className="main">
+        <div className="graph">
+          <h2>Interactive Graph</h2>
+          <Graph
+            nodes={nodes}
+            setNodes={setNodes}
+            links={links}
+            setLinks={setLinks}
+          />
+        </div>
+        <div className="node-info">
+          <h2>Node Information</h2>
+          <Curve />
+        </div>
+      </div>
+      <div className="plant-info">
+        <h2>Plant Information</h2>
+      </div>
     </div>
   );
 }
