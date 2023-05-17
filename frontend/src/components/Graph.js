@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-const Graph = () => {
+const Graph = ({ nodes, setNodes, links, setLinks }) => {
   const svgRef = useRef(null);
   const simulationRef = useRef(null);
   // const [nodes, setNodes] = useState([
@@ -13,8 +13,8 @@ const Graph = () => {
   //   { source: "node1", target: "node2" },
   //   { source: "node2", target: "node3" },
   // ]);
-  const [nodes, setNodes] = useState([]);
-  const [links, setLinks] = useState([]);
+  // const [nodes, setNodes] = useState([]);
+  // const [links, setLinks] = useState([]);
   const [selectedNodes, setSelectedNodes] = useState([]);
 
   useEffect(() => {
@@ -159,8 +159,8 @@ const Graph = () => {
 
   return (
     <svg ref={svgRef} width={600} height={600} style={{ border: "1px solid" }}>
-      <g class="links"></g>
-      <g class="nodes"></g>
+      <g className="links"></g>
+      <g className="nodes"></g>
     </svg>
   );
 };
