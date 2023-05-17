@@ -10,13 +10,16 @@ import Curve from "./components/Curve";
 export default function App() {
   const [nodes, setNodes] = useState([]);
   const [links, setLinks] = useState([]);
-  const [selectedNodes, setSelectedNodes] = useState([]);
+
   return (
     <div className="App">
-      <Graph nodes={nodes} links={links} />
-      {/* <NodeInfo nodes={nodes} selectedNodes={selectedNodes} /> */}
-      {/* <Curve /> */}
-      {/* {console.log(nodes, links)} */}
+      <Graph
+        nodes={nodes}
+        setNodes={setNodes}
+        links={links}
+        setLinks={setLinks}
+      />
+      {console.log(nodes, links)}
     </div>
   );
 }
