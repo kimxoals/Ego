@@ -5,8 +5,12 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .node image {
   pointer-events: all;
+}
+
+svg {
+  border: 1px solid black;
 }
