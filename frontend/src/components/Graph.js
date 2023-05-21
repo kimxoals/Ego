@@ -28,8 +28,8 @@ const Graph = ({ nodes, setNodes, links, setLinks }) => {
           .id((d) => d.id)
           .strength(0)
       )
-      .force("charge", d3.forceManyBody().strength(0))
-      // .force("center", d3.forceCenter(300, 300))
+      .force("charge", d3.forceManyBody().strength(-10))
+      .force("center", d3.forceCenter(300, 300))
       .on("tick", () => {
         // update the positions of the nodes and links on each tick of the simulation
         nodesSelection.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
