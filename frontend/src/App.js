@@ -23,7 +23,39 @@ export default function App() {
         </div>
         <div className="node-info">
           <h2>Node Information</h2>
-          <Curve />
+          <div class="panel">
+            <div class="data-column">
+              <p>
+                <strong>ID:</strong> node1
+              </p>
+              <p>
+                <strong>Price Sensitivity:</strong> 0.87
+              </p>
+              <p>
+                <strong>Location:</strong>
+              </p>
+              <ul>
+                <li>
+                  <strong>X:</strong> 123
+                </li>
+                <li>
+                  <strong>Y:</strong> 199
+                </li>
+              </ul>
+            </div>
+            <div class="usage-column">
+              <p>
+                <strong>Current:</strong> 17 watts
+              </p>
+              <p>
+                <strong>Daily Average:</strong> 8 kWh
+              </p>
+              <p>
+                <strong>Distribution:</strong>
+              </p>
+              <Curve />
+            </div>
+          </div>
         </div>
       </div>
       <div className="plant-info">
