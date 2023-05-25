@@ -4,9 +4,6 @@ import "./App.css";
 import NodeInfo from "./components/NodeInfo";
 import Graph from "./components/Graph";
 
-import Graph from "./components/Graph";
-import Curve from "./components/Curve";
-
 export default function App() {
   const [nodes, setNodes] = useState([]);
   const [links, setLinks] = useState([]);
