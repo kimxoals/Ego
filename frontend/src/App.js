@@ -1,6 +1,8 @@
 import React from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import "./App.css";
+import NodeInfo from "./components/NodeInfo";
+import Graph from "./components/Graph";
 
 import Graph from "./components/Graph";
 import Curve from "./components/Curve";
@@ -21,10 +23,7 @@ export default function App() {
             setLinks={setLinks}
           />
         </div>
-        <div className="node-info">
-          <h2>Node Information</h2>
-          <Curve />
-        </div>
+        <NodeInfo />
       </div>
       <div className="plant-info">
         <h2>Plant Information</h2>
