@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-const Graph = ({ nodes, setNodes, links, setLinks }) => {
+const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   const svgRef = useRef(null);
   const simulationRef = useRef(null);
   // const [nodes, setNodes] = useState([
@@ -63,7 +63,16 @@ const Graph = ({ nodes, setNodes, links, setLinks }) => {
       .attr("class", "node")
       .attr("r", 20)
       .attr("id", (d) => d.id)
+      .style("fill", (d) => (d.id === selectedNode ? "red" : "blue"))
       .call(drag(simulation));
+
+    nodesSelection.on("mouseover", (event) => {
+      d3.select(event.target).style("fill", "red");
+    });
+
+    nodesSelection.on("mouseout", (event) => {
+      d3.select(event.target).style("fill", "blue");
+    });
 
     // const nodeRadius = 20;
     // const nodesSelection = svg
@@ -155,7 +164,7 @@ const Graph = ({ nodes, setNodes, links, setLinks }) => {
       nodesSelection.remove();
       linksSelection.remove();
     };
-  }, [nodes, links, selectedNodes]);
+  }, [nodes, links, selectedNodes, selectedNode]);
 
   return (
     <svg ref={svgRef} width={600} height={600}>

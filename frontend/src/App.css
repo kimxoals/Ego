@@ -20,6 +20,7 @@ h2 {
 .plant-info {
   border: 2px solid black;
   margin: 2px;
+  display: flex;
 }
 
 .plant-info {
@@ -61,4 +62,8 @@ svg {
 .data-column strong,
 .usage-column strong {
   font-weight: bold;
+}
+
+.stackbig {
+  float: right;
 }
