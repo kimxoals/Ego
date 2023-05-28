@@ -22,7 +22,10 @@ function NodeItem(props) {
         <button
           type="button"
           className="btn btn__danger"
-          onClick={() => props.deleteNode(props.id)}
+          onClick={() => {
+            props.deleteNode(props.id);
+            props.setSelectedNode(null);
+          }}
         >
           Delete <span className="visually-hidden">{props.id}</span>
         </button>

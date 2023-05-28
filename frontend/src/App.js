@@ -3,16 +3,18 @@ import { useState } from "react";
 import "./App.css";
 import Graph from "./components/Graph";
 import NodeItem from "./components/NodeItem";
+import NodeInfo from "./components/NodeInfo";
 
 export default function App() {
   const [nodes, setNodes] = useState([]);
   const [links, setLinks] = useState([]);
   const [selectedNode, setSelectedNode] = useState(null);
-  console.log("setSelectedNode  " + selectedNode);
   function deleteNode(id) {
     const remainingNodes = nodes.filter((node) => id !== node.id);
     setNodes(remainingNodes);
   }
+
+  // console.log(nodes);
 
   const nodeList = nodes.map((node) => (
     <NodeItem
@@ -38,6 +40,7 @@ export default function App() {
           />
           <div className="stack-big">{nodeList}</div>
         </div>
+        <NodeInfo nodes={nodes} selectedNode={selectedNode} />
       </div>
       <div className="plant-info">
         <h2>Plant Information</h2>

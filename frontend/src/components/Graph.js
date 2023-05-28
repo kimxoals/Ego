@@ -93,7 +93,7 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
 
       if (targetNode.nodeName === "svg") {
         // Clicked on empty space
-        console.log("svg clicked");
+        // console.log("svg clicked");
         const point = d3.pointer(event);
         const id = `node${nodes.length + 1}`;
         const newNode = {
