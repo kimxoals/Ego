@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
+const width = 800;
+const height = 600;
+const radius = 20;
 
 const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   const svgRef = useRef(null);
@@ -26,13 +29,18 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
         d3
           .forceLink(links)
           .id((d) => d.id)
-          .strength(0)
+          .distance(100)
+        // .strength(0)
       )
-      .force("charge", d3.forceManyBody().strength(-10))
+      .force("charge", d3.forceManyBody().distanceMax(200).strength(-20))
+      .force("collide", d3.forceCollide(20).iterations(10))
+      // forceCollide(radius).iteration(increase to reduce jitter)
       .force("center", d3.forceCenter(300, 300))
       .on("tick", () => {
         // update the positions of the nodes and links on each tick of the simulation
-        nodesSelection.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+        nodesSelection
+          .attr("cx", (d) => Math.max(radius, Math.min(width - radius, d.x)))
+          .attr("cy", (d) => Math.max(radius, Math.min(height - radius, d.y)));
 
         linksSelection
           .attr("x1", (d) => d.source.x)
@@ -61,7 +69,7 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
       .data(nodes, (node) => node.id)
       .join("circle")
       .attr("class", "node")
-      .attr("r", 20)
+      .attr("r", radius)
       .attr("id", (d) => d.id)
       .style("fill", (d) => (d.id === selectedNode ? "red" : "blue"))
       .call(drag(simulation));
@@ -168,7 +176,7 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   }, [nodes, links, selectedNodes, selectedNode]);
 
   return (
-    <svg ref={svgRef} width={600} height={600}>
+    <svg ref={svgRef} width={width} height={height}>
       <g className="links"></g>
       <g className="nodes"></g>
     </svg>
