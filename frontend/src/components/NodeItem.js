@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function NodeItem(props) {
   const viewTemplate = (
     <div className="stack-small">
-      <div className="NodeList-Item">
+      <div className="node-list-item">
         <input id={props.id} type="checkbox" />
         <label className="node-label" htmlFor={props.id}>
           {props.id}

@@ -1,8 +1,7 @@
 import React from "react";
 import Curve from "./Curve";
 function NodeInfo({ nodes, selectedNode }) {
-  // props = node
-  const nodeSelected = { id: 1, priceSensitivity: 0.7, x: 123.123, y: 321.321 };
+  // const nodeSelected = { id: 1, priceSensitivity: 0.7, x: 123.123, y: 321.321 };
 
   const currentNode = nodes.find((node) => selectedNode === node.id);
   const nodeView = (
@@ -15,7 +14,7 @@ function NodeInfo({ nodes, selectedNode }) {
           </p>
           <p>
             <strong>Price Sensitivity:</strong>{" "}
-            {selectedNode ? nodeSelected.priceSensitivity : "n/a"}
+            {selectedNode ? currentNode.ped : "n/a"}
           </p>
           <p>
             <strong>Location:</strong>

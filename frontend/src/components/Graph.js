@@ -100,6 +100,7 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
           id: id,
           x: point[0],
           y: point[1],
+          ped: Math.floor(Math.random() * 1000) / 1000,
         };
         setNodes([...nodes, newNode]);
         setSelectedNodes([]);
