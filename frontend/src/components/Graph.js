@@ -58,7 +58,7 @@ const Graph = ({ nodes, setNodes, links, setLinks }) => {
     const nodesSelection = svg
       .select(".nodes")
       .selectAll(".node")
-      .data(nodes)
+      .data(nodes, (node) => node.id)
       .join("circle")
       .attr("class", "node")
       .attr("r", 20)
@@ -105,8 +105,9 @@ const Graph = ({ nodes, setNodes, links, setLinks }) => {
           // Second node selected, create link if it doesn't exist
           const linkExists = links.some((link) => {
             return (
-              (link.source === selectedNodes[0] && link.target === nodeId) ||
-              (link.source === nodeId && link.target === selectedNodes[0])
+              (link.source.id === selectedNodes[0] &&
+                link.target.id === nodeId) ||
+              (link.source.id === nodeId && link.target.id === selectedNodes[0])
             );
           });
 
