@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
+import SVGImage from "../assets/house.svg";
+
 const width = 800;
 const height = 600;
 const radius = 20;
+const SVGHeight = 40;
+const SVGWidth = 40;
 
 const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   const svgRef = useRef(null);
@@ -30,23 +34,23 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
           .forceLink(links)
           .id((d) => d.id)
           .distance(100)
-        // .strength(0)
+          .strength(0)
       )
-      .force("charge", d3.forceManyBody().distanceMax(200).strength(-20))
+      .force("charge", d3.forceManyBody().distanceMax(200).strength(0))
       .force("collide", d3.forceCollide(20).iterations(10))
       // forceCollide(radius).iteration(increase to reduce jitter)
       .force("center", d3.forceCenter(300, 300))
       .on("tick", () => {
         // update the positions of the nodes and links on each tick of the simulation
         nodesSelection
-          .attr("cx", (d) => Math.max(radius, Math.min(width - radius, d.x)))
-          .attr("cy", (d) => Math.max(radius, Math.min(height - radius, d.y)));
+          .attr("x", (d) => Math.max(radius, Math.min(width - radius, d.x)))
+          .attr("y", (d) => Math.max(radius, Math.min(height - radius, d.y)));
 
         linksSelection
-          .attr("x1", (d) => d.source.x)
-          .attr("y1", (d) => d.source.y)
-          .attr("x2", (d) => d.target.x)
-          .attr("y2", (d) => d.target.y);
+          .attr("x1", (d) => d.source.x + SVGWidth / 2)
+          .attr("y1", (d) => d.source.y + SVGWidth / 2)
+          .attr("x2", (d) => d.target.x + SVGHeight / 2)
+          .attr("y2", (d) => d.target.y + SVGHeight / 2);
       });
 
     // save the simulation to a ref for later use
@@ -63,15 +67,29 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
       .attr("stroke", "#999")
       .attr("stroke-width", 2);
 
+    // const nodesSelection = svg
+    //   .select(".nodes")
+    //   .selectAll(".node")
+    //   .data(nodes, (node) => node.id)
+    //   .enter()
+    //   // .append("circle")
+    //   .attr("class", "node")
+    //   .attr("r", radius)
+    //   .attr("id", (d) => d.id)
+    //   .style("fill", (d) => (d.id === selectedNode ? "red" : "blue"))
+    //   .call(drag(simulation));
+
     const nodesSelection = svg
       .select(".nodes")
       .selectAll(".node")
       .data(nodes, (node) => node.id)
-      .join("circle")
+      .enter()
+      .append("image")
+      .attr("xlink:href", SVGImage)
+      // .append("circle")
+      // .join("circle")
       .attr("class", "node")
-      .attr("r", radius)
       .attr("id", (d) => d.id)
-      .style("fill", (d) => (d.id === selectedNode ? "red" : "blue"))
       .call(drag(simulation));
 
     nodesSelection.on("mouseover", (event) => {
@@ -106,8 +124,8 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
         const id = `node${nodes.length + 1}`;
         const newNode = {
           id: id,
-          x: point[0],
-          y: point[1],
+          x: point[0] - SVGHeight / 2,
+          y: point[1] - SVGWidth / 2,
         };
         setNodes([...nodes, newNode]);
         setSelectedNodes([]);

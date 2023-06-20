@@ -10,10 +10,17 @@ export default function App() {
   const [nodes, setNodes] = useState([...data.nodes]);
   const [links, setLinks] = useState([...data.links]);
   const [selectedNode, setSelectedNode] = useState(null);
-  console.log("setSelectedNode  " + selectedNode);
+  // console.log("setSelectedNode  " + selectedNode);
   function deleteNode(id) {
     const remainingNodes = nodes.filter((node) => id !== node.id);
     setNodes(remainingNodes);
+    deleteLink(id);
+  }
+  function deleteLink(id) {
+    const remainingLinks = links.filter(
+      (link) => ![link.source.id, link.target.id].includes(id)
+    );
+    setLinks(remainingLinks);
   }
 
   const nodeList = nodes.map((node) => (
@@ -21,11 +28,12 @@ export default function App() {
       id={node.id}
       name={node.id}
       deleteNode={deleteNode}
+      deleteLinks={deleteLink}
       setSelectedNode={setSelectedNode}
     />
   ));
 
-  console.log(nodes);
+  // console.log(nodes);
   // const links = linksData.map((d) => Object.assign({}, d));
   // const nodes = nodesData.map((d) => Object.assign({}, d));
 
@@ -33,7 +41,6 @@ export default function App() {
     <div className="App">
       <div className="main">
         <h2>Interactive Graph</h2>
-
         <div className="graph">
           <Graph
             nodes={nodes}
