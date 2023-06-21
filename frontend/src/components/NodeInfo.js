@@ -5,10 +5,11 @@ function NodeInfo({ nodes, selectedNode }) {
 
   const currentNode = nodes.find((node) => selectedNode === node.id);
   const nodeView = (
-    <div className="node-info">
+    <div className="wrapper">
       <h2>Node Information</h2>
-      <div className="panel">
-        <div className="data-column">
+
+      <div className="row">
+        <div className="column">
           <p>
             <strong>ID:</strong> {selectedNode ? currentNode.id : "n/a"}
           </p>
@@ -28,7 +29,7 @@ function NodeInfo({ nodes, selectedNode }) {
             </li>
           </ul>
         </div>
-        <div className="usage-column">
+        <div className="column">
           <p>
             <strong>Current:</strong> 17 watts
           </p>

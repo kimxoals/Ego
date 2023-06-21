@@ -27,23 +27,32 @@ export default function App() {
 
   return (
     <div className="App">
-      <div className="main">
-        <h2>Interactive Graph</h2>
+      <div className="row">
+        <div className="columm left">
+          <div className="wrapper">
+            <h2>Interactive Graph</h2>
+            <div className="row">
+              <div className="column left">
+                <Graph
+                  nodes={nodes}
+                  setNodes={setNodes}
+                  links={links}
+                  setLinks={setLinks}
+                  selectedNode={selectedNode}
+                />
+              </div>
+              <div className="column right">{nodeList}</div>
+            </div>
+          </div>
 
-        <div className="graph">
-          <Graph
-            nodes={nodes}
-            setNodes={setNodes}
-            links={links}
-            setLinks={setLinks}
-            selectedNode={selectedNode}
-          />
-          <div className="stack-big">{nodeList}</div>
+          <NodeInfo nodes={nodes} selectedNode={selectedNode} />
         </div>
-        <NodeInfo nodes={nodes} selectedNode={selectedNode} />
-      </div>
-      <div className="plant-info">
-        <h2>Plant Information</h2>
+        <div className="column right">
+          <div className="wrapper">
+            <h2>Plant Information</h2>
+            Stuff
+          </div>
+        </div>
       </div>
     </div>
   );

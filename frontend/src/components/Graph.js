@@ -168,7 +168,7 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   }, [nodes, links, selectedNodes, selectedNode]);
 
   return (
-    <svg ref={svgRef} width={600} height={600}>
+    <svg className="graph" ref={svgRef} width={"100%"} height={"100%"}>
       <g className="links"></g>
       <g className="nodes"></g>
     </svg>
