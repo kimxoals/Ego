@@ -5,12 +5,12 @@ import data from "./data/data_new.json";
 
 import Graph from "./components/Graph";
 import NodeItem from "./components/NodeItem";
+import NodeInfo from "./components/NodeInfo";
 
 export default function App() {
   const [nodes, setNodes] = useState([...data.nodes]);
   const [links, setLinks] = useState([...data.links]);
   const [selectedNode, setSelectedNode] = useState(null);
-  // console.log("setSelectedNode  " + selectedNode);
   function deleteNode(id) {
     const remainingNodes = nodes.filter((node) => id !== node.id);
     setNodes(remainingNodes);
@@ -22,6 +22,8 @@ export default function App() {
     );
     setLinks(remainingLinks);
   }
+
+  // console.log(nodes);
 
   const nodeList = nodes.map((node) => (
     <NodeItem
@@ -51,6 +53,7 @@ export default function App() {
           />
           <div className="stack-big">{nodeList}</div>
         </div>
+        <NodeInfo nodes={nodes} selectedNode={selectedNode} />
       </div>
       <div className="plant-info">
         <h2>Plant Information</h2>

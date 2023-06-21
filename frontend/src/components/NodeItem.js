@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function NodeItem(props) {
   const viewTemplate = (
     <div className="stack-small">
-      <div className="NodeList-Item">
+      <div className="node-list-item">
         <input id={props.id} type="checkbox" />
         <label className="node-label" htmlFor={props.id}>
           {props.id}
@@ -22,7 +22,10 @@ function NodeItem(props) {
         <button
           type="button"
           className="btn btn__danger"
-          onClick={() => props.deleteNode(props.id)}
+          onClick={() => {
+            props.deleteNode(props.id);
+            props.setSelectedNode(null);
+          }}
         >
           Delete <span className="visually-hidden">{props.id}</span>
         </button>

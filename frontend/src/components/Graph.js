@@ -119,13 +119,14 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
 
       if (targetNode.nodeName === "svg") {
         // Clicked on empty space
-        console.log("svg clicked");
+        // console.log("svg clicked");
         const point = d3.pointer(event);
         const id = `node${nodes.length + 1}`;
         const newNode = {
           id: id,
           x: point[0] - SVGHeight / 2,
           y: point[1] - SVGWidth / 2,
+          ped: Math.floor(Math.random() * 1000) / 1000,
         };
         setNodes([...nodes, newNode]);
         setSelectedNodes([]);
