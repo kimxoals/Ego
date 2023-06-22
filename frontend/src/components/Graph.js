@@ -4,13 +4,14 @@ import SVGImage from "../assets/house.svg";
 
 const width = 800;
 const height = 600;
-const radius = 20;
-const SVGHeight = 40;
-const SVGWidth = 40;
+
+const ImgHeight = 40;
+const ImgWidth = 40;
 
 const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   const svgRef = useRef(null);
   const simulationRef = useRef(null);
+
   // const [nodes, setNodes] = useState([
   //   { id: "node1" },
   //   { id: "node2" },
@@ -25,6 +26,8 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   const [selectedNodes, setSelectedNodes] = useState([]);
 
   useEffect(() => {
+    // const width = svgRef?.current?.clientWidth;
+    // const height = svgRef?.current?.clientHeight;
     // create a D3 simulation with a force-directed layout
     const simulation = d3
       .forceSimulation(nodes)
@@ -39,18 +42,16 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
       .force("charge", d3.forceManyBody().distanceMax(200).strength(0))
       .force("collide", d3.forceCollide(20).iterations(10))
       // forceCollide(radius).iteration(increase to reduce jitter)
-      .force("center", d3.forceCenter(300, 300))
+      .force("center", d3.forceCenter(width / 2, height / 2))
       .on("tick", () => {
         // update the positions of the nodes and links on each tick of the simulation
-        nodesSelection
-          .attr("x", (d) => Math.max(radius, Math.min(width - radius, d.x)))
-          .attr("y", (d) => Math.max(radius, Math.min(height - radius, d.y)));
+        nodesSelection.attr("x", (d) => d.x).attr("y", (d) => d.y);
 
         linksSelection
-          .attr("x1", (d) => d.source.x + SVGWidth / 2)
-          .attr("y1", (d) => d.source.y + SVGWidth / 2)
-          .attr("x2", (d) => d.target.x + SVGHeight / 2)
-          .attr("y2", (d) => d.target.y + SVGHeight / 2);
+          .attr("x1", (d) => d.source.x + ImgWidth / 2)
+          .attr("y1", (d) => d.source.y + ImgWidth / 2)
+          .attr("x2", (d) => d.target.x + ImgHeight / 2)
+          .attr("y2", (d) => d.target.y + ImgHeight / 2);
       });
 
     // save the simulation to a ref for later use
@@ -66,18 +67,6 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
       .attr("class", "link")
       .attr("stroke", "#999")
       .attr("stroke-width", 2);
-
-    // const nodesSelection = svg
-    //   .select(".nodes")
-    //   .selectAll(".node")
-    //   .data(nodes, (node) => node.id)
-    //   .enter()
-    //   // .append("circle")
-    //   .attr("class", "node")
-    //   .attr("r", radius)
-    //   .attr("id", (d) => d.id)
-    //   .style("fill", (d) => (d.id === selectedNode ? "red" : "blue"))
-    //   .call(drag(simulation));
 
     const nodesSelection = svg
       .select(".nodes")
@@ -100,32 +89,18 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
       d3.select(event.target).style("fill", "blue");
     });
 
-    // const nodeRadius = 20;
-    // const nodesSelection = svg
-    //   .selectAll(".node")
-    //   .data(nodes, (node) => node.id)
-    //   .join("g")
-    //   .attr("class", "node")
-    //   .append("image")
-    //   .attr("x", (node) => node.x - nodeRadius)
-    //   .attr("y", (node) => node.y - nodeRadius)
-    //   .attr("width", nodeRadius * 2)
-    //   .attr("height", nodeRadius * 2)
-    //   .attr("xlink:href", "./house.svg")
-    //   .call(drag(simulation));
-
     svg.on("click", (event) => {
       const targetNode = d3.select(event.target).node();
 
       if (targetNode.nodeName === "svg") {
         // Clicked on empty space
-        // console.log("svg clicked");
+
         const point = d3.pointer(event);
         const id = `node${nodes.length + 1}`;
         const newNode = {
           id: id,
-          x: point[0] - SVGHeight / 2,
-          y: point[1] - SVGWidth / 2,
+          x: point[0] - ImgHeight / 2,
+          y: point[1] - ImgWidth / 2,
           ped: Math.floor(Math.random() * 1000) / 1000,
         };
         setNodes([...nodes, newNode]);
@@ -169,8 +144,14 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
       }
 
       function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
+        // Calculate the new coordinates based on the drag event
+        // Confine the new coordinates within SVG size
+        const newX = Math.max(0, Math.min(width - ImgWidth, d.x + event.dx));
+        const newY = Math.max(0, Math.min(height - ImgHeight, d.y + event.dy));
+
+        // Update the node's position
+        d.fx = newX;
+        d.fy = newY;
       }
 
       function dragended(event, d) {
@@ -195,7 +176,7 @@ const Graph = ({ nodes, setNodes, links, setLinks, selectedNode }) => {
   }, [nodes, links, selectedNodes, selectedNode]);
 
   return (
-    <svg ref={svgRef} width={width} height={height}>
+    <svg className="graph" ref={svgRef} width={width} height={height}>
       <g className="links"></g>
       <g className="nodes"></g>
     </svg>
