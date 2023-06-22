@@ -1,4 +1,7 @@
 /* ALL */
+.App {
+  display: flex;
+}
 
 svg {
   border: 1px solid black;
